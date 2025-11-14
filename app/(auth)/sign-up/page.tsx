@@ -55,6 +55,7 @@ const SignUp = () => {
         <InputField
           name="email"
           label="Email"
+          type="email"
           placeholder="johndoe@example.com"
           register={register}
           error={errors.email}
