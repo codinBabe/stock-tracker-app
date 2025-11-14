@@ -36,5 +36,11 @@ export const connectDB = async () => {
     cached.promise = null;
     throw err;
   }
-  console.log(`Connected to database in ${process.env.NODE_ENV || 'development'} environment`);
+  console.log(
+    `Connected to database in ${
+      process.env.NODE_ENV || "development"
+    } environment`
+  );
+
+  return cached.conn;
 };
