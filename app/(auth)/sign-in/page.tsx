@@ -5,10 +5,12 @@ import InputField from "@/components/forms/input-field";
 import { Button } from "@/components/ui/button";
 import { signInWithEmail } from "@/lib/actions/auth.actions";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const SignIn = () => {
+  const [visible, setVisible] = useState(false);
   const router = useRouter();
 
   const {
