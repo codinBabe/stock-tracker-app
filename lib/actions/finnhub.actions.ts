@@ -3,8 +3,13 @@
 import { getDateRange, validateArticle, formatArticle } from "@/lib/utils";
 
 const FINNHUB_BASE_URL = "https://finnhub.io/api/v1";
+
 const NEXT_PUBLIC_FINNHUB_API_KEY =
   process.env.NEXT_PUBLIC_FINNHUB_API_KEY || "";
+
+if (!NEXT_PUBLIC_FINNHUB_API_KEY) {
+  console.error("NEXT_PUBLIC_FINNHUB_API_KEY is not set");
+}
 
 const fetchJSON = async (url: string, revalidateSeconds?: number) => {
   try {
@@ -64,7 +69,12 @@ export const getNews = async (
             const articles = await fetchCompanyNews(symbol);
             const valid = (articles || []).filter(validateArticle);
             if (valid.length > 0) {
-              const formatted = formatArticle(valid[0], true, symbol, collected.length);
+              const formatted = formatArticle(
+                valid[0],
+                true,
+                symbol,
+                collected.length
+              );
               collected.push(formatted as MarketNewsArticle);
             }
           } catch (e) {
