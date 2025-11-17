@@ -1,9 +1,5 @@
 import { getAllUsersForNewsEmail } from "../actions/user.actions";
-import {
-  sendNewsSummaryEmail,
-  sendWelcomeEmail,
-  transporter,
-} from "../nodemailer";
+import { sendNewsSummaryEmail, sendWelcomeEmail } from "../nodemailer";
 import { inngest } from "./client";
 import {
   NEWS_SUMMARY_EMAIL_PROMPT,
@@ -11,7 +7,7 @@ import {
 } from "./prompt";
 import { getWatchlistSymbolsByEmail } from "@/lib/actions/watchlist.actions";
 import { getNews } from "@/lib/actions/finnhub.actions";
-import { formatDateToday } from "../utils";
+import { getFormattedTodayDate } from "../utils";
 
 export const sendSignupEmail = inngest.createFunction(
   { id: "sign-up-email" },
@@ -139,7 +135,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
 
           return await sendNewsSummaryEmail({
             email: user.email,
-            date: formatDateToday,
+            date: getFormattedTodayDate(),
             newsContent,
           });
         })
