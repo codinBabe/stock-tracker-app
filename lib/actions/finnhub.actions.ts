@@ -53,6 +53,9 @@ export const getNews = async (
 
       if (cleaned.length === 0) return [];
 
+      // Track offset for each symbol to avoid duplicates
+      const symbolOffsets = new Map<string, number>();
+
       // Round-robin up to 6 rounds (take 1 article per symbol per round)
       for (
         let round = 0;
@@ -65,17 +68,19 @@ export const getNews = async (
           i++
         ) {
           const symbol = cleaned[i];
+          const offset = symbolOffsets.get(symbol) || 0;
           try {
             const articles = await fetchCompanyNews(symbol);
             const valid = (articles || []).filter(validateArticle);
-            if (valid.length > 0) {
+            if (valid.length > offset) {
               const formatted = formatArticle(
-                valid[0],
+                valid[offset],
                 true,
                 symbol,
                 collected.length
               );
               collected.push(formatted as MarketNewsArticle);
+              symbolOffsets.set(symbol, offset + 1);
             }
           } catch (e) {
             // log and continue to next symbol
