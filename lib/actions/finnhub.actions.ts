@@ -64,7 +64,7 @@ export const getNews = async (
             const articles = await fetchCompanyNews(symbol);
             const valid = (articles || []).filter(validateArticle);
             if (valid.length > 0) {
-              const formatted = formatArticle(valid[0], true, symbol, round);
+              const formatted = formatArticle(valid[0], true, symbol, collected.length);
               collected.push(formatted as MarketNewsArticle);
             }
           } catch (e) {

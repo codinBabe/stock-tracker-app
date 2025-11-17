@@ -12,7 +12,7 @@ const WatchlistSchema = new Schema<WatchlistItem>(
     userid: { type: String, required: true, index: true },
     symbol: { type: String, required: true, uppercase: true, trim: true },
     company: { type: String, required: true, trim: true },
-    addedAt: { type: Date, default: Date.now() },
+    addedAt: { type: Date, default: Date.now },
   },
   { timestamps: false }
 );
