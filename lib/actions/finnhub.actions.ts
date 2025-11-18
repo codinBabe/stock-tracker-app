@@ -161,7 +161,7 @@ export const searchStocks = cache(
               displaySymbol: symbol,
               type: "Common Stock",
             };
-            (r as any)._exchange = exchange;
+            (r as any).__exchange = exchange;
             return r;
           })
           .filter((x): x is FinnhubSearchResult => Boolean(x));
